@@ -249,7 +249,7 @@ def trainIters(args, lang, dataset, encoder, decoder, critic, performer, extract
         
     env.stop()
 
-def trainRL():
+def trainModel():
     np.random.seed(0)
     data_split = "seen"
     train_id = 1
@@ -458,6 +458,5 @@ def evalModel():
         split_id=data_split + str(train_id), print_every=1, save_every=10)
 
 if __name__ == '__main__':
-	# trainModel()
-    plot_rl_loss()
+    trainModel()
     # evalModel()
