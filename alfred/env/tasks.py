@@ -2,7 +2,6 @@ import os
 import json
 import numpy as np
 
-from alfred.env.reward import get_action
 from alfred.gen import constants
 from alfred.gen.graph import graph_obj
 from alfred.gen.utils import game_util
@@ -61,9 +60,10 @@ class BaseTask(object):
         '''
         raise NotImplementedError
 
-    def transition_reward(self, state):
+    def transition_reward(self, state, orig=False):
         '''
         immediate reward given the current state
+        orig: whether to use the original reward function in ET
         '''
         reward = 0
 
@@ -78,6 +78,10 @@ class BaseTask(object):
 
         # subgoal reward
         if "dense" in self.reward_type:
+            if orig:
+                from alfred.env.reward_orig import get_action
+            else:
+                from alfred.env.reward import get_action
             action = get_action(action_type, self.gt_graph, self.env, self.reward_config, self.strict)
             sg_reward, sg_done = action.get_reward(state, self.prev_state, expert_plan, self.goal_idx)
             reward += sg_reward

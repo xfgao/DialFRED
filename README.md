@@ -85,7 +85,7 @@ We focus on three types of questions:
 To answer these questions, we build an oracle to extract ground-truth information from the virtual environment and generate answers based on templates. Given the offline generated answers, we further modify the data by sampling QA combinations in addition to the instructions. We use the modified data to pre-train the performer.
 
 ``` bash
-python modify_data.py
+python append_data.py
 ```
 
 Following the ET pipeline, we create the lmdb dataset and pre-train the performer
@@ -95,7 +95,7 @@ export SUBGOAL=subgoal
 export EVAL_TYPE=valid_unseen
 
 # create lmdb dataset
-python -m alfred.data.create_lmdb with args.visual_checkpoint=$LOGS/pretrained/fasterrcnn_model.pth args.data_output=lmdb_${EXP_NAME}_${SUBGOAL} args.vocab_path=$DT_ROOT/files/$EXP_NAME.vocab > ./logs/et_${EXP_NAME}_${SUBGOAL}.log 2>&1 &
+python -m alfred.data.create_lmdb with args.visual_checkpoint=$LOGS/pretrained/fasterrcnn_model.pth args.data_output=lmdb_${EXP_NAME}_${SUBGOAL} args.vocab_path=$DF_ROOT/files/$EXP_NAME.vocab > ./logs/et_${EXP_NAME}_${SUBGOAL}.log 2>&1 &
 
 # train the ET performer
 python -m alfred.model.train with exp.model=transformer exp.name=et_${EXP_NAME}_${SUBGOAL} exp.data.train=lmdb_${EXP_NAME}_${SUBGOAL} train.seed=1 > ./logs/et_${EXP_NAME}_${SUBGOAL}.log 2>&1 &

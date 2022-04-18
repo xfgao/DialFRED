@@ -138,7 +138,7 @@ def augment_traj(env, json_file, args, video_saver, render_settings):
             print(colored("Replay Failed: %s" % (
                 env.last_event.metadata['errorMessage']), 'red'))
             return False
-        reward, _ = env.get_transition_reward()
+        reward, _ = env.get_transition_reward(render=True)
         rewards.append(reward)
 
     # save 1 frame in the end and increase the counter by 10

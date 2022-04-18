@@ -6,9 +6,9 @@ from collections import OrderedDict
 
 DEBUG = True
 EVAL = False
-ET_ROOT = os.environ['ET_ROOT']
-ET_DATA = os.environ['ET_DATA']
-ET_LOGS = os.environ['ET_LOGS']
+ET_ROOT = os.environ['DF_ROOT']
+ET_DATA = os.environ['DATA']
+ET_LOGS = os.environ['LOGS']
 
 RECORD_VIDEO_IMAGES = True
 RECORD_SMOOTHING_FACTOR = 1
@@ -1248,11 +1248,11 @@ VOCAB_FILENAME = 'data.vocab'
 OBJ_CLS_VOCAB = 'files/obj_cls.vocab'
 
 # TRAJECTORIES GENERATION
-LOG_FILE = os.path.join(os.environ['ET_DATA'], 'logs_gen')
+LOG_FILE = os.path.join(os.environ['DATA'], 'logs_gen')
 # paths to layouts
-LAYOUTS_PATH = os.path.join(os.environ['ET_ROOT'], 'alfred/gen/layouts')
-FF_PATH = os.path.join(os.environ['ET_ROOT'], 'alfred/gen/ff_planner/ff')
-PLANNER_PATH = os.path.join(os.environ['ET_ROOT'], 'alfred/gen/planner')
+LAYOUTS_PATH = os.path.join(os.environ['DF_ROOT'], 'alfred/gen/layouts')
+FF_PATH = os.path.join(os.environ['DF_ROOT'], 'alfred/gen/ff_planner/ff')
+PLANNER_PATH = os.path.join(os.environ['DF_ROOT'], 'alfred/gen/planner')
 # scene numbers from the paper
 PAPER_TRAIN_SCENES = [
     1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
