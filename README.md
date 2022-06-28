@@ -25,6 +25,7 @@ Inherited from the E.T. repo, the package is depending on:
 - tensorboardX==1.8
 - ai2thor==2.1.0
 - stanza
+- Werkzeug==2.1.1
 - E.T. (https://github.com/alexpashevich/E.T.)
 
 ## Setup
