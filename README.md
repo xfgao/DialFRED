@@ -2,6 +2,17 @@
 
 Language-guided Embodied AI benchmarks requiring an agent to navigate an environment and manipulate objects typically allow one-way communication: the human user gives a natural language command to the agent, and the agent can only follow the command passively. In this work, we present DialFRED, a dialogue-enabled embodied instruction following benchmark based on the ALFRED benchmark. DialFRED allows an agent to actively ask questions to the human user; the additional information in the user’s response is used by the agent to better complete its task. We release a human-annotated dataset with 53K task-relevant questions and answers and an oracle to answer questions. To solve DialFRED, we propose a questioner-performer framework wherein the questioner is pre-trained with the human-annotated data and fine-tuned with reinforcement learning. Experimental results show that asking the right questions leads to significantly improved task performance.
 
+## Citation
+If you use our code or data, please consider citing our paper.
+```bash
+@article{gao2022dialfred,
+  title={Dialfred: Dialogue-enabled agents for embodied instruction following},
+  author={Gao, Xiaofeng and Gao, Qiaozi and Gong, Ran and Lin, Kaixiang and Thattai, Govind and Sukhatme, Gaurav S},
+  journal={arXiv preprint arXiv:2202.13330},
+  year={2022}
+}
+```
+
 ## Dependency
 Inherited from the E.T. repo, the package is depending on:
 - numpy
