@@ -158,4 +158,4 @@ python rl_training_questioner_anytime.py > /dev/null 2>&1 &
 ```
 
 ## (New) Leaderboard
-We provide a [**testset**](testset/) to evaluate the model. The testset contains 1092 tasks. For each task, we provide [**json data**](testset/dialfred_testset_final.zip) and the oracle answers for the 3 types of questions in the paper (i.e. [**location**](testset/loc_testset_final.pkl), [**direction**](testset/direction_testset_final.pkl) and [**appearance**](testset/appear_testset_final.pkl)). 
+We provide a [**testset**](testset/) to evaluate the model. The testset contains 1092 tasks. For each task, we provide [**json data**](testset/dialfred_testset_final.zip) and the oracle answers for the 3 types of questions in the paper (i.e. [**location**](testset/loc_testset_final.pkl), [**direction**](testset/direction_testset_final.pkl) and [**appearance**](testset/appear_testset_final.pkl)). Results can be submitted here: [**DialFRED Challenge**](https://eval.ai/web/challenges/challenge-page/1859/overview).
