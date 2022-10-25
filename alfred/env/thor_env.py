@@ -44,6 +44,7 @@ class ThorEnv(Controller):
         self.cooled_objects = set()
         self.heated_objects = set()
 
+
         print("ThorEnv started.")
 
     def reset(self, scene_name_or_num,
@@ -85,6 +86,11 @@ class ThorEnv(Controller):
         # clear object state changes
         self.reset_states()
         self.last_interaction = (None, None)
+
+        # save the cleaned/heated/cooled objects to metadata
+        event.metadata["cleaned_objects"] = list(self.cleaned_objects)
+        event.metadata["heated_objects"] = list(self.heated_objects)
+        event.metadata["cooled_objects"] = list(self.cooled_objects)
 
         return event
 
@@ -188,6 +194,11 @@ class ThorEnv(Controller):
                 fridge = game_util.get_objects_of_type('Fridge', event.metadata)[0]
                 cooled_object_ids = fridge['receptacleObjectIds']
                 self.cooled_objects = self.cooled_objects | set(cooled_object_ids) if cooled_object_ids is not None else set()
+        
+        # save the cleaned/heated/cooled objects to metadata
+        event.metadata["cleaned_objects"] = list(self.cleaned_objects)
+        event.metadata["heated_objects"] = list(self.heated_objects)
+        event.metadata["cooled_objects"] = list(self.cooled_objects)
 
         return event
 
