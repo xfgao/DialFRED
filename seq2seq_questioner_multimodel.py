@@ -569,7 +569,7 @@ def pretrainQuestioner():
     attn_decoder1 = AttnDecoderLSTM(lang.n_words, lang.n_words,
                     ACTION_EMBEDDING_SIZE, HIDDEN_SIZE, DROPOUT_RATIO).to(device)
     
-    model_fn = "./logs/pretrained_questioner.pt"
+    model_fn = "./logs/questioner_rl/pretrained_questioner.pt"
 
     # train questioner and save the model
     trainIters(lang, training_pairs, encoder1, attn_decoder1, n_iters=num_epoch*len(training_pairs), print_every=100)

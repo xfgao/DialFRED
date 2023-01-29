@@ -168,6 +168,10 @@ def appendQAOracle(gen_data_dir, answer_dir, old_vocab_fn, new_vocab_fn, augment
 			task_dir = sp_dir + task + "/"
 			trial_fds = os.listdir(task_dir)
 			for trial in trial_fds:
+				# if trial == "trial_T20190918_154326_823501":
+				# 	print(trial)
+				# else:
+				# 	continue
 				# first backup the original json file
 				old_fn = task_dir + trial + "/traj_data_augmented_backup.json"
 				new_fn = task_dir + trial + "/traj_data.json"
@@ -180,7 +184,9 @@ def appendQAOracle(gen_data_dir, answer_dir, old_vocab_fn, new_vocab_fn, augment
 				# some tasks/trials cannot be found
 				if task not in answers["loc"] or trial not in answers["loc"][task]:
 					task_cnt += 1
-					logging.info("Unable to find answers for task %s %s" % (task, trial))
+					logging.info("Unable to find answers for split %s task %s %s" % (sp, task, trial))
+					with open(new_fn, "w") as f:
+						json.dump(new_data, f, sort_keys=True, indent=4)
 					continue
 
 				for sg_idx in range(num_sg):

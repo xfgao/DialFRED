@@ -1,5 +1,6 @@
 import numpy as np
 import time
+import splitter
 
 nouns_not_nec = ["bottom", "up", "down", "forward", "forwards", "left", "right", "middle", "front", "back", "end", "room", "second", "seconds", "step", "steps", "moment", "moments", "minute", "side", "one", "walk"]
 put_in_list = ["box", "bathtubbasin", "bowl", "cabinet", "cup", "drawer", "fridge", "garbagecan", "microwave", "mug", "pan", "pot", "safe", "sinkbasin", "sink"]
@@ -13,6 +14,7 @@ sg_same_noun_idx = [(0, 2), (0, 2), (), (1, 2), (1, 2)]
 
 # non-naive instruction templates for combined subgoals
 sg_instr_template = ["Put into the noun0", "Pick up the noun1", "Take the noun0 to the noun1", "Put the noun0 into the noun1", "Cut the noun2 with a knife"]
+split_cache = {"saltshaker":"salt shaker", "tvstand":"tv stand"}
 
 
 def viewDictionary(d, levels, indent=0):

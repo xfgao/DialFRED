@@ -31,12 +31,12 @@ class ThorEnv(Controller):
         super().__init__(quality=quality)
         self.local_executable_path = build_path
         # uncomment for cloud instance
-        # self.start(x_display=str(x_display),
-        #            player_screen_height=player_screen_height,
-        #            player_screen_width=player_screen_width)
+        self.start(x_display=str(x_display),
+                   player_screen_height=player_screen_height,
+                   player_screen_width=player_screen_width)
 
         # local machine
-        self.start()
+        # self.start()
         self.task = None
 
         # internal states

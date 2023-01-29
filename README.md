@@ -2,18 +2,8 @@
 
 Language-guided Embodied AI benchmarks requiring an agent to navigate an environment and manipulate objects typically allow one-way communication: the human user gives a natural language command to the agent, and the agent can only follow the command passively. In this work, we present DialFRED, a dialogue-enabled embodied instruction following benchmark based on the ALFRED benchmark. DialFRED allows an agent to actively ask questions to the human user; the additional information in the user’s response is used by the agent to better complete its task. We release a human-annotated dataset with 53K task-relevant questions and answers and an oracle to answer questions. To solve DialFRED, we propose a questioner-performer framework wherein the questioner is pre-trained with the human-annotated data and fine-tuned with reinforcement learning. Experimental results show that asking the right questions leads to significantly improved task performance.
 
-## Citation
-If you use our code or data, please consider citing our paper.
-```bash
-@article{gao2022dialfred,
-  title={Dialfred: Dialogue-enabled agents for embodied instruction following},
-  author={Gao, Xiaofeng and Gao, Qiaozi and Gong, Ran and Lin, Kaixiang and Thattai, Govind and Sukhatme, Gaurav S},
-  journal={arXiv preprint arXiv:2202.13330},
-  year={2022}
-}
-```
-
 ## Dependency
+
 Inherited from the E.T. repo, the package is depending on:
 - numpy
 - pandas
@@ -80,14 +70,12 @@ cd $DF_ROOT
 python -m alfred.gen.render_trajs
 ```
 
-## Sub-goal augmentation and instruction augmentation
+## Prepare dataset
 
 We provide the code to augment the Alfred data by merging low level actions into subgoals and spliting one subgoal into multiple ones. We also created new instructions to improve language variety. 
 ```bash
 python augment_data.py
 ```
-
-## Pre-train performer
 
 We focus on three types of questions:
 1. location clarification question: where is the object?
@@ -100,7 +88,7 @@ To answer these questions, we build an oracle to extract ground-truth informatio
 python append_data.py
 ```
 
-Following the ET pipeline, we create the lmdb dataset and pre-train the performer
+Following the ET pipeline, we can create the lmdb dataset 
 ``` bash
 export EXP_NAME=augmented_human
 export SUBGOAL=subgoal
@@ -109,12 +97,10 @@ export EVAL_TYPE=valid_unseen
 # create lmdb dataset
 python -m alfred.data.create_lmdb with args.visual_checkpoint=$LOGS/pretrained/fasterrcnn_model.pth args.data_output=lmdb_${EXP_NAME}_${SUBGOAL} args.vocab_path=$DF_ROOT/files/$EXP_NAME.vocab > ./logs/et_${EXP_NAME}_${SUBGOAL}.log 2>&1 &
 
-# train the ET performer
-python -m alfred.model.train with exp.model=transformer exp.name=et_${EXP_NAME}_${SUBGOAL} exp.data.train=lmdb_${EXP_NAME}_${SUBGOAL} train.seed=1 > ./logs/et_${EXP_NAME}_${SUBGOAL}.log 2>&1 &
-
 ```
 
 ## Human QA data
+
 We use crowd-sourcing to collect 53K human task-oriented questions and answers. The dataset are available at:
 ```
 ./data/dialfred_human_qa.csv
@@ -140,22 +126,56 @@ Each line contains one annotation for an augmented sub-goal. The definition of e
 17  Necessary. Whether the annotator thinks the question and answer are necessary for the task completion.
 ```
 
-## Pre-train and finetune the questioner
+## Questioner and performer evaluation
 
-Given the human QA data we collected via crowd-sourcing, we can pretrain the questioner model first.
+Download checkpoints for finetuned questioner and pretrained performer.
 ```bash
-python seq2seq_questioner_multimodel.py > /dev/null 2>&1 &
+scripts/fetch_model_checkpt.sh
+
+```
+For evaluating the pretrained models:
+```bash
+python train_eval.py --mode eval
 
 ```
 
-Finally, given the pretrained questioner and performer, we can finetune the questioner model using RL.
+## Train the questioner and performer from scratch
+
+Given the lmdb dataset, we can pre-train the performer
 ```bash
-# RL begin: training the questioner to ask questions at the beginning 
-python rl_training_questioner_begin.py > /dev/null 2>&1 &
+# train the ET performer
+python -m alfred.model.train with exp.model=transformer exp.name=et_${EXP_NAME}_${SUBGOAL} exp.data.train=lmdb_${EXP_NAME}_${SUBGOAL} train.seed=1 > ./logs/et_${EXP_NAME}_${SUBGOAL}.log 2>&1 &
+
+```
+
+Given the human QA data we collected via crowd-sourcing, we can pretrain the questioner model.
+```bash
+python seq2seq_questioner_multimodel.py
+
+```
+
+Given the pretrained questioner and performer, we can finetune the questioner model using RL on valid seen.
+```bash
 # RL anytime: training the questioner to ask questions at anytime of the task
-python rl_training_questioner_anytime.py > /dev/null 2>&1 &
+python train_eval.py --mode train --questioner-path ./logs/questioner_rl/pretrained_questioner.pt
 
 ```
 
-## (New) Leaderboard
-We provide a [**testset**](testset/) to evaluate the model. The testset contains 1092 tasks. For each task, we provide [**json data**](testset/dialfred_testset_final.zip) and the oracle answers for the 3 types of questions in the paper (i.e. [**location**](testset/loc_testset_final.pkl), [**direction**](testset/direction_testset_final.pkl) and [**appearance**](testset/appear_testset_final.pkl)). Results can be submitted here: [**DialFRED Challenge**](https://eval.ai/web/challenges/challenge-page/1859/overview).
+Given the finetuned questioner and pretrained performer, we can evaluate the models on valid unseen.
+```bash
+# RL anytime: training the questioner to ask questions at anytime of the task
+python train_eval.py --mode eval --questioner-path ./logs/questioner_rl/questioner_anytime_seen1.pt
+
+```
+
+## Citation
+
+If you use our code or data, please consider citing our paper.
+```bash
+@article{gao2022dialfred,
+  title={Dialfred: Dialogue-enabled agents for embodied instruction following},
+  author={Gao, Xiaofeng and Gao, Qiaozi and Gong, Ran and Lin, Kaixiang and Thattai, Govind and Sukhatme, Gaurav S},
+  journal={arXiv preprint arXiv:2202.13330},
+  year={2022}
+}
+```

@@ -4,13 +4,12 @@ data/json_2.1.0
 data/json_feat_2.1.0
 data/*.zip
 df_env/
-logs/pretrained
-data/lmdb_augmented_human_subgoal
 *.pickle
 !data/augmented_data*.pickle
-files/augmented_human.vocab
 .vscode/
 __pycache__/
 *.pt
 *.pyc
 logs/*/
+!logs/questioner_rl/
+data/lmdb*

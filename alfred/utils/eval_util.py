@@ -222,7 +222,7 @@ def extract_rcnn_pred(class_idx, obj_predictor, env, verbose=False):
         print('Agent prediction = {}, detected {} objects (visible {})'.format(
             class_name, len(candidates), len(visible_objs)))
     if len(candidates) > 0:
-        if env.last_interaction[0] == class_idx:
+        if env.last_interaction[0] == class_idx and env.last_interaction[1] is not None:
             # last_obj['id'] and class_name + '|' in env.last_obj['id']:
             # do the association based selection
             last_center = np.array(env.last_interaction[1].nonzero()).mean(axis=1)
