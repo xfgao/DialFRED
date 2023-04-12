@@ -168,6 +168,12 @@ python train_eval.py --mode eval --questioner-path ./logs/questioner_rl/question
 
 ```
 
+
+## Testset
+
+We provide a [**testset**](testset/) to evaluate the model. The testset contains 1092 tasks. For each task, we provide [**json data**](testset/dialfred_testset_final.zip) and the oracle answers for the 3 types of questions in the paper (i.e. [**location**](testset/loc_testset_final.pkl), [**direction**](testset/direction_testset_final.pkl) and [**appearance**](testset/appear_testset_final.pkl)). Results can be submitted here: [**DialFRED Challenge**](https://eval.ai/web/challenges/challenge-page/1859/overview).
+
+
 ## Citation
 
 If you use our code or data, please consider citing our paper.
