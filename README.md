@@ -169,9 +169,13 @@ python train_eval.py --mode eval --questioner-path ./logs/questioner_rl/question
 ```
 
 
-## Testset
+## CVPR 2023 Embodied AI Workshop DialFRED Challenge
 
-We provide a [**testset**](testset/) to evaluate the model. The testset contains 1092 tasks. For each task, we provide [**json data**](testset/dialfred_testset_final.zip) and the oracle answers for the 3 types of questions in the paper (i.e. [**location**](testset/loc_testset_final.pkl), [**direction**](testset/direction_testset_final.pkl) and [**appearance**](testset/appear_testset_final.pkl)). Results can be submitted here: [**DialFRED Challenge**](https://eval.ai/web/challenges/challenge-page/1859/overview).
+We provide a [**testset**](testset/) to evaluate the model. The testset contains 1092 tasks. For each task, we provide [**json data**](testset/dialfred_testset_final.zip) and the oracle answers for the 3 types of questions in the paper (i.e. [**location**](testset/loc_testset_final.pkl), [**direction**](testset/direction_testset_final.pkl) and [**appearance**](testset/appear_testset_final.pkl)). 
+
+For an example to generate a submission file: [generate_submission.py](https://github.com/xfgao/DialFRED/blob/main/misc/generate_submission.py)
+
+Results can be submitted here for CVPR 2023 Embodied AI Workshop: [**DialFRED Challenge**](https://eval.ai/web/challenges/challenge-page/1859/overview).
 
 
 ## Citation
