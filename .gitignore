@@ -13,3 +13,5 @@ __pycache__/
 logs/*/
 !logs/questioner_rl/
 data/lmdb*
+testThor*
+testset/dialfred_testset_final/
