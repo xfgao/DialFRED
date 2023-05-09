@@ -181,8 +181,8 @@ def appendQAOracle(gen_data_dir, answer_dir, old_vocab_fn, new_vocab_fn, augment
 				if task not in answers["loc"] or trial not in answers["loc"][task]:
 					task_cnt += 1
 					logging.info("Unable to find answers for split %s task %s %s" % (sp, task, trial))
-					with open(new_fn, "w") as f:
-						json.dump(new_data, f, sort_keys=True, indent=4)
+					# with open(new_fn, "w") as f:
+					# 	json.dump(new_data, f, sort_keys=True, indent=4)
 					continue
 
 				for sg_idx in range(num_sg):
