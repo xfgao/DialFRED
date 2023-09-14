@@ -57,7 +57,7 @@ sh download_data.sh json
 sh download_data.sh json_feat
 ```
 
-Copy pretrained checkpoints:
+Copy pretrained checkpoints (check this issue https://github.com/alexpashevich/E.T./issues/13 if you have problem downloading the ET checkpoints):
 ```bash
 wget http://pascal.inrialpes.fr/data2/apashevi/et_checkpoints.zip
 unzip et_checkpoints.zip
